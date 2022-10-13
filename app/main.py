@@ -1,26 +1,13 @@
-from typing import Optional
-
-import psycopg2
-from fastapi import FastAPI, Response, status, HTTPException
+from fastapi import FastAPI, Response, status, HTTPException, Depends
 from pydantic import BaseModel
-from random import randrange
-import psycopg2
-from psycopg2.extras import RealDictCursor
-import time
+from sqlalchemy.orm import Session
+from . import models
+from .database import SessionLocal, engine, get_db
+
+models.Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI()
-
-while True:
-    try:
-        conn = psycopg2.connect(host='localhost', database='fastapi', user='postgres', password='qwerty',
-                                cursor_factory=RealDictCursor)
-        cursor = conn.cursor()
-        print("Database connection was successful")
-        break
-    except Exception as error:
-        print('Connection to database failed')
-        print('Error:', error)
-        time.sleep(2)
 
 
 class Post(BaseModel):
@@ -31,6 +18,11 @@ class Post(BaseModel):
 
 @app.get("/")
 def get_posts():
+    return {"message": "Hi Deb!"}
+
+
+@app.get("/sqlalchemy")
+def test_posts(db: Session = Depends(get_db)):
     return {"message": "Hi Deb!"}
 
 
