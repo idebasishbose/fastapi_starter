@@ -1,0 +1,22 @@
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "idebasishbose", email = "idebasishbose@gmail.com"},
+]
+dependencies = [
+    "fastapi[all]>=0.85.0",
+    "autopep8>=1.7.0",
+    "psycopg2>=2.9.4",
+    "sqlalchemy>=1.4.41",
+]
+requires-python = ">=3.7"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"
+
+[tool]
+[tool.pdm]
