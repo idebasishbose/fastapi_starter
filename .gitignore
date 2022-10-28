@@ -2,3 +2,4 @@
 .idea
 .fleet
 .venv
+/.pytest_cache
